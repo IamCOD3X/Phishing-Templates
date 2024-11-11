@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;1,100&display=swap');
+
+/* -----RESET------- */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+/* -------Common------ */
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #05aaf7;
+}
+
+input[type="radio"]{
+    display: none;
+}
+
+/* ----------Slider------ */
+.slider{
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+}
+
+.slider .slides{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    
+}
+
+/* Slide */
+.slider .slides .slide{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    display: flex;
+    transition: all 0.5s ease-in;
+}
+
+.slider .slides .curr{
+    opacity: 1;
+}
+
+/* Overlay */
+.slider .slides .slide::after{
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.4;
+    z-index: 1;
+
+}
+
+/* Images */
+.slides .slide img{
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    transform: scale(0.8);
+    transition: all 0.5s ease-in;
+}
+
+.slides .curr img{
+    transform: scale(1);
+}
+
+
+
+
+/* ----Navigation Arrows---- */
+.slider .arrow{
+    position: absolute;
+    text-decoration: none;
+    z-index: 20;
+    color:var(--secondary-color);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    transition: all 0.3s ease-in;
+}
+
+.slider .arrow:hover{
+    opacity: 1;
+}
+
+.slider .arrow i{
+    font-size: 3rem;
+}
+
+.slider .left{
+    left: 70px;
+}
+
+.slider .right{
+    right: 70px;
+}
+
+/* ---------Radio Navigation--------- */
+.slider .rad-nav{
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider .rad-nav .rad-btn{
+    width: 25px;
+    height: 25px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    margin: 0px 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.slider .rad-nav .rad-btn:hover{
+    background-color: #fff;
+    border-radius: 30%;
+}
+
+.active{
+    background-color:var(--secondary-color);
+}
+
+
+    .slider .arrow i{
+        font-size: 2rem;
+    }
+
+    .slider .left{
+        left: 30px;
+    }
+    
+    .slider .right{
+        right: 30px;
+    }
+
+
+@media(max-width: 400px){
+    /* Slide Description */
+    .slides .slide .desc{
+        width: 50%;
+        min-width: 100px;
+    }
+
+    .slide .desc h2{
+        font-size: 2rem;
+        line-height: 2.3rem;
+    }
+
+    .slide .desc p{
+        font-size: 0.8rem;
+    }
+
+    .slide .desc a{
+        font-size: 0.8rem;
+        padding: 5px 5px;
+    }
+
+    .slider .arrow i{
+        font-size: 1.5rem;
+    }
+    
+    .slider .left{
+        left: 15px;
+    }
+    
+    .slider .right{
+        right: 15px;
+    }
+
+    .slider .rad-nav .rad-btn{
+        width: 15px;
+        height: 15px;
+        border: 1px solid #fff;
+        margin: 0px 10px;
+       
+    }
+}
+:root{
+    --primary-color:#edf2fc;
+    --secondary-color:#212121;
+}
+.dark-theme{
+    --primary-color: #000106;
+    --secondary-color: #fff;
+
+}
+body{
+    background-color: var(--secondary-color);
+}
+#icon{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-left: 25px;
+}
+nav{
+    background-color: var(--secondary-color);
+}
+.search-bar {
+    margin: 2px;
+    padding: 4px;
+    border-radius: 5px;
+    height: 45px;
+    margin-left: 125px;
+    border: 1px solid darkgrey;
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav-link {
+    color:var(--primary-color);
+}
+.nav-link:hover {
+    color:#f15bb8;
+}
+.form-control{
+    background-color: var(--secondary-color);
+    margin-left: 270px;
+    width: 370px;
+    height: 40px;
+    border-radius: 8px;
+
+} 
+.account{
+    background-color: var(--secondary-color);
+    margin-left: 10px;
+}
+
+.search-bar:hover {
+    border-color: rgb(238, 84, 187);
+}
+.d-block {
+    height: 500px;
+}
+h5{
+    color: var(--primary-color);
+}
+span{
+    color: var(--primary-color);
+}
+h3{
+    margin-left: 50px;
+    margin-top: 20px;
+    color: var(--primary-color);
+}
+p{
+    margin-left: 45PX;
+    color: var(--primary-color);
+}
+.details{
+    color:#421a03;
+}
+.details {
+    display: flex;
+}
+.smallcard{
+    border-radius: 10px;
+}
+.smallcard:hover{
+    width: 160px;
+    height: 180px ;
+}
+.col{
+    border-radius: 10px;
+}
+.title {
+    display: flex;
+    flex-direction: column;
+}
+.card-img-top {
+    height:50px ;
+    width: 50px;
+    border-radius: 10%;
+}
+
+.channel-logo{
+    max-width: 10px;
+    margin-right: 10px;
+
+}
+.description{
+    margin-left: 80px;
+}
+.carousel-control-next-icon{
+    background-color: rgb(84, 94, 84);
+    border-radius: 50%;
+}
+.carousel-control-next-icon:hover{
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+.carousel-control-prev-icon{
+    background-color: rgb(84, 90, 84);
+    border-radius: 50%;
+}
+.carousel-control-prev-icon:hover{
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+
+/*FOOTER*/
+
+footer {
+    background: #16222A;
+    background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
+    background: linear-gradient(59deg, #3A6073, #16222A);
+    
+    margin-top:100px;
+  }
+  
+  footer a {
+    color: #fff;
+    font-size: 14px;
+    transition-duration: 0.2s;
+  }
+  
+  footer a:hover {
+    color: #FA944B;
+    text-decoration: none;
+  }
+  
+  .copy {
+    font-size: 12px;
+    padding: 10px;
+    border-top: 1px solid #FFFFFF;
+  }
+  
+  .footer-middle {
+    padding-top: 2em;
+    color: white;
+  }
+  .blackplay{
+      margin-top: 90px;
+      margin-left: 100px;
+  }
+  body {
+    padding-top: 2rem;
+}
+
+@media (min-width: 576px) {
+    .card-group.card-group-scroll {
+        overflow-x: auto;
+        flex-wrap:nowrap;
+        
+    }
+}
+
+.card-group.card-group-scroll > .card {
+    flex-basis: 35%;
+}
+  @media (min-width: 1200px) {
+    .row{
+        justify-content: space-between;
+  }
+  
+}
+
+  
+  

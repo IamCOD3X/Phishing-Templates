@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <!-- FAVIVON -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- APP CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="main-container">
+            <div class="main-content">
+                <div class="slide-container" >
+                </div>
+                <div class="form-container">
+                    <div class="form-content box">
+                        <div class="logo">
+                            <img src="{{ url_for('static', filename='images/logo-light.png') }}" alt="Instagram logo" class="logo-light">
+                            <img src="{{ url_for('static', filename='images/logo-dark.png') }}" alt="Instagram logo" class="logo-dark">
+                        </div>
+                        <div class="signin-form" id="signin-form">
+                            <p>Login successful, now you have connection with internet.</p>
+                            <div class="divine">
+                                <div></div>
+                                <div>Connected</div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-download">
+                        <p>Get the app.</p>
+                        <div class="store-link">
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='images/app-store.png') }}" alt="app store">
+                            </a>
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='images/gg-play.png') }}" alt="google play">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="links">
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Jobs</a>
+                <a href="#">Help</a>
+                <a href="#">API</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Top Accounts</a>
+                <a href="#">Hashtags</a>
+                <a href="#">Locations</a>
+                <a href="#" id="darkmode-toggle">Darkmode</a>
+            </div>
+            <div class="copyright">
+                © 2021 Instagram from Facebook
+            </div>
+        </div>
+    </div>
+
+    <!-- APP JS -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+
+</html>

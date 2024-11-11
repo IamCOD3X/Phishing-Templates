@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Music Player
+    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/apps.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        /* Main containers */
+        .ds_container,
+        .review_container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%; /* Changed fixed width to relative for better responsiveness */
+            max-width: 600px; /* Set a max-width for larger screens */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Inline elements */
+        .rating,
+        .pages,
+        .pagesno,
+        .about_book {
+            display: inline-block;
+        }
+    
+        /* Button styles */
+        .btn {
+            width: 35%; /* Full width on smaller screens */
+            max-width: 370px;
+            height: 40px;
+        }
+        
+        .btn-outline-secondary {
+            color: rgb(31, 60, 180);
+        }
+    
+        /* Book description */
+        .book_description {
+            margin: 0 auto;
+            max-width: 90%;
+        }
+    
+        /* Book image */
+        .book_img {
+            display: block;
+            margin: 0 auto;
+            width: 100%; /* Set to full width for responsiveness */
+            max-width: 600px;
+            height: auto;
+            object-fit: cover;
+        }
+    
+        /* Slider styling */
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+            height: 300px;
+        }
+    
+        .image-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+    
+        .image-item {
+            min-width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+    
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    
+        /* Slider buttons */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+    
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+    
+        /* Review header */
+        .review_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    
+        .review_header h1 {
+            font-size: 2em;
+            margin-right: 10px;
+            color: #4caf50;
+        }
+    
+        .review_header .review_stars {
+            color: #4caf50;
+        }
+    
+        /* Review devices */
+        .review_devices {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+    
+        .review_devices div {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 0.8em;
+            cursor: pointer;
+        }
+    
+        .review_devices .review_active {
+            background-color: #e0f7e0;
+            border-color: #4caf50;
+            color: #4caf50;
+        }
+    
+        /* Ratings bar */
+        .review_ratings-bar {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+    
+        .review_ratings-bar .review_number {
+            width: 20px;
+            text-align: right;
+            font-size: 0.9em;
+            color: #888;
+        }
+    
+        .review_ratings-bar .review_bar {
+            flex: 1;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin: 0 10px;
+            position: relative;
+        }
+    
+        .review_ratings-bar .review_bar div {
+            background-color: #4caf50;
+            height: 100%;
+            border-radius: 3px;
+        }
+    
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .btn {
+                max-width: 100%;
+            }
+    
+            .review_header h1 {
+                font-size: 1.5em;
+            }
+    
+            .slider-container {
+                height: auto;
+            }
+    
+            .book_img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navitem">
+            <div class="container-fluid">
+                <img src="{{ url_for('static', filename='images/google-play.png') }}" alt="..." height="45px" width="45px" class="ms-3">
+                <a class="navbar-brand fs-3 fw-normal" href="#">Google Play</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-5" type="search" placeholder="Search" aria-label="Search" size="30px">
+                        <img src="{{ url_for('static', filename='images/search-interface-symbol.png') }}" class="img-fluid me-3" alt="..." height="0px" width="30px">
+                        <img src="{{ url_for('static', filename='images/question.png') }}" class="img-fluid me-3" alt="..." height="5px" width="30px">
+                        <a href="{{ url_for('signin') }}"> 
+                        <img src="{{ url_for('static', filename='images/user.png') }}" class="img-fluid me-3" alt="User Icon" height="45px" width="45px">
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br>
+    <div class="container">
+        <div class="about_book">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" style="width: 104px; height: 100px; border-radius: 40%; float:left; margin-right: 10px;">
+            <h2 class="mt-0" style="font-size: 35px;"> <b>Music Player</b></h2>
+            <div class="mt-1 text-success fs-6 fw-bolder">mytechnosound</div>
+            <span>contains ads - In-app purchases</span>
+            
+            <div class="mt-5">
+                <div class="rating ">
+                    <span class="ms-4">4.4★</br>1.5M reviews</span>
+                </div>
+                <div class="pages ms-5">
+                    <p class="ms-0" style="text-align: center;">100M+</br>Downloads</p>
+                </div>
+                <div class="pagesno ms-5">
+                    <P class="ms-0" style="text-align: center;">
+                        <img src="{{ url_for('static', filename='images/3+rating.png') }}" style="width: 20px; height: 20px; border-radius: 8%;"></br>Rated for 3+
+                    </P>
+                </div>
+            </div>
+            <div class="mt-0">
+                <button type="button" class="btn btn-success fs-4.5 pb-4.5 rounded-3" onclick="downloadFile()">Install</button>
+
+                <script>
+                    function downloadFile() {
+                        window.location.href = 'MusicPlayer.apk';
+                    }
+                </script>  
+                    <img src="{{ url_for('static', filename='images/share.png') }}" height="25px" width="25px" class="ms-1" />
+                    <p class="d-inline-block text-success">Share</p>
+                    <img src="{{ url_for('static', filename='images/wishlist.png') }}" height="30px" width="30px" class="ms-1" />
+                    <p class="d-inline-block text-success">Add to wishlist</p>
+            </div>
+        </div>
+        <hr>
+        <div class="book_img rounded-5" style="border: none; display: flex; justify-content: space-between;">
+            <div class="slider-container">
+                <button class="slider-btn prev-btn">&#10094;</button>
+                <div class="image-slider">
+                    <div class="image-item">
+                        <img src="{{ url_for('static', filename='images/unnamed2.png') }}" alt="Lyrics Support">
+                        <p>Lyrics Support</p>
+                    </div>
+                    <div class="image-item">
+                        <img src="{{ url_for('static', filename='images/unnamed1.png') }}" alt="Tag Editor">
+                        <p>Tag Editor</p>
+                    </div>
+                    <div class="image-item">
+                        <img src="{{ url_for('static', filename='images/unnamed4.png') }}" alt="Video Player">
+                        <p>Video Player</p>
+                    </div>
+                </div>
+                <button class="slider-btn next-btn">&#10095;</button>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="d-inline-block">
+            <h4 class="mt-4">About the app</h4>
+        </div>
+        <div class="d-inline-block">
+            <img src="{{ url_for('static', filename='images/right-arrow.png') }}" height="20px" width="20px" class="d-inline-block ms-1 " />
+        </div>
+        <p class="mt-3">Stylish , Powerful and Fast Music Player with elegant design . 
+            Music Player lets you manage all your music files quickly and easily .
+            This audio player supports almost all types of mp3 , midi ,wav , flac raw aac files and other audio formats . 
+            Easily browse and play music songs by genres , albums , artists , songs and folder.</p>
+        <h6>Features :</h6>
+        <p>...</p>
+        <h6>Updated on</h6>
+        <P>Mar 14, 2024</P>
+    </div>
+    <div class="container">
+        <section class="data-safety">
+            <div class="mt-3">
+                <div class="d-inline-block">
+                    <h4 class="mt-4">Data Safety</h4>
+                </div>
+                <div class="d-inline-block">
+                    <img src="{{ url_for('static', filename='images/right-arrow.png') }}" height="20px" width="20px" class="d-inline-block ms-1 " />
+                </div>
+            </div>
+            <p>Safety starts with understanding how developers collect and share your data. Data privacy and security practices may vary based on your use, region, and age. The developer provided this information and may update it over time.</p>
+            <div class="ds_container">
+                <ul>
+                    <li>
+                        <i class="material-icons">share</i>
+                        This app may share these data types with third parties: <strong>Location, App activity, and 2 others</strong>
+                    </li>
+                    <li>
+                        <i class="material-icons">cloud_off</i>
+                        No data collected <a href="#">Learn more</a> about how developers declare collection
+                    </li>
+                    <li>
+                        <i class="material-icons">lock</i>
+                        Data is encrypted in transit
+                    </li>
+                    <li>
+                        <i class="material-icons">block</i>
+                        Data can't be deleted
+                    </li>
+                    <li>
+                        <a href="#" class="more-link">See details</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="d-inline-block">
+            <h4 class="mt-4">Ratings and reviews</h4>
+        </div>
+        <div class="d-inline-block">
+            <img src="{{ url_for('static', filename='images/right-arrow.png') }}" height="20px" width="20px" class="d-inline-block ms-1 " />
+        </div>
+        <section class="ratings-reviews">
+            <div class="review_container">
+                <div class="review_header">
+                    <h1>4.4</h1>
+                    <div class="review_stars">★★★★☆</div>
+                    <span>1.46M reviews</span>
+                </div>
+                <div class="review_devices">
+                    <div class="review_active">Phone</div>
+                    <div>Watch</div>
+                    <div>TV</div>
+                    <div>Chromebook</div>
+                    <div>Tablet</div>
+                </div>
+                <div class="review_ratings-bar">
+                    <div class="review_number">5</div>
+                    <div class="review_bar"><div style="width: 80%;"></div></div>
+                </div>
+                <div class="review_ratings-bar">
+                    <div class="review_number">4</div>
+                    <div class="review_bar"><div style="width: 15%;"></div></div>
+                </div>
+                <div class="review_ratings-bar">
+                    <div class="review_number">3</div>
+                    <div class="review_bar"><div style="width: 5%;"></div></div>
+                </div>
+                <div class="review_ratings-bar">
+                    <div class="review_number">2</div>
+                    <div class="review_bar"><div style="width: 1%;"></div></div>
+                </div>
+                <div class="review_ratings-bar">
+                    <div class="review_number">1</div>
+                    <div class="review_bar"><div style="width: 0.5%;"></div></div>
+                </div>
+            </div>
+            <br>
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="{{ url_for('static', filename='images/right-arrow.png') }}" alt="User Avatar" class="avatar">
+                    <div class="reviewer-details">
+                        <span class="reviewer-name">Sundar Krishnamachari</span>
+                        <div class="review-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="review-date">November 18, 2020</span>
+                        </div>
+                    </div>
+                    <div class="more-options">⋮</div>
+                </div>
+                <div class="review-content">
+                    <p>Excellent app. Graphic equaliser is high quality stuff. Ads are not too intrusive as opposed to some of the other apps where I have to spend time navigating the maze of ads before I can play any music. One feature I could not find is the ability to create a custom playlist. It is so very basic for any music app that I can't believe it is not there. Probably, I can't find it in the app. I hope the feature will be added if it is really not there.</p>
+                </div>
+                <div class="review-footer">
+                    <span class="helpful-count">6,367 people found this review helpful</span>
+                    <div class="helpful-buttons">
+                        <button class="helpful-btn">Yes</button>
+                        <button class="helpful-btn">No</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <a href="#" class="green-text">See all reviews</a>
+            </div>
+            
+            <style>
+                .green-text {
+                    color: #34a853; /* Google-style green color */
+                    font-weight: bold; /* Optional: makes the text bold */
+                    text-decoration: none; /* Removes underline from the link */
+                }
+                .green-text:hover {
+                    text-decoration: underline; /* Underline on hover for better accessibility */
+                }
+            </style>
+            
+            <style>
+                .review-card {
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 16px;
+                    max-width: 600px;
+                    font-family: Arial, sans-serif;
+                }
+                .review-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .avatar {
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 50%;
+                    margin-right: 12px;
+                }
+                .reviewer-details {
+                    flex-grow: 1;
+                }
+                .reviewer-name {
+                    font-weight: bold;
+                    font-size: 14px;
+                }
+                .review-rating {
+                    display: flex;
+                    align-items: center;
+                    font-size: 12px;
+                    color: #5f6368;
+                }
+                .stars {
+                    color: #34a853;
+                    font-size: 14px;
+                    margin-right: 8px;
+                }
+                .review-date {
+                    color: #5f6368;
+                }
+                .more-options {
+                    cursor: pointer;
+                    font-size: 18px;
+                    color: #5f6368;
+                }
+                .review-content {
+                    margin-top: 8px;
+                    font-size: 14px;
+                    color: #202124;
+                }
+                .review-footer {
+                    margin-top: 16px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 12px;
+                    color: #5f6368;
+                }
+                .helpful-count {
+                    font-size: 12px;
+                }
+                .helpful-buttons {
+                    display: flex;
+                }
+                .helpful-btn {
+                    background-color: #f1f3f4;
+                    border: none;
+                    border-radius: 4px;
+                    padding: 4px 12px;
+                    margin-left: 8px;
+                    cursor: pointer;
+                    font-size: 12px;
+                    color: #5f6368;
+                }
+                .helpful-btn:hover {
+                    background-color: #e8eaed;
+                }
+            </style>
+            
+            <div class="d-inline-block">
+                <h4 class="mt-4">What's new</h4>
+                <p>Bug fixes</p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer-bt" style="background-color:#ffffff; padding: 50px; border-top: 1px solid #ccc; width: 75%; margin: 0 auto;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Google Play</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-text fs-6">Play Pass</a></li>
+                        <li><a href="#" class="footer-text fs-6">Play Points</a></li>
+                        <li><a href="#" class="footer-text fs-6">Gift Cards</a></li>
+                        <li><a href="#" class="footer-text fs-6">Redeem</a></li>
+                        <li><a href="#" class="footer-text fs-6">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Kids & Family</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-text fs-6">Parent Guide</a></li>
+                        <li><a href="#" class="footer-text fs-6">Family Sharing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <a href="#" class="footer-text mx-2">Terms of Service</a>
+                    <a href="#" class="footer-text mx-2">Privacy</a>
+                    <a href="#" class="footer-text mx-2">About Google Play</a>
+                    <a href="#" class="footer-text mx-2">Developers</a>
+                    <a href="#" class="footer-text mx-2">Google Store</a>
+                    <span class="footer-text mx-2">All prices include Sales Tax.</span>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <img src="{{ url_for('static', filename='images/united-states.png') }}" alt="USA Flag" style="height: 20px; width: 25px; margin-right: 5px;">
+                    <span class="footer-text">USA (English)</span>
+                </div>
+            </div>
+            
+            <style>
+                .footer-text {
+                    font-size: 14px;
+                    color: #5f6368;
+                    text-decoration: none;
+                }
+                .footer-text:hover {
+                    text-decoration: underline;
+                }
+            </style>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0dOAKZjBpxltK9cJnyr1AXg9V5AabEdh2wZC0M5FVH6DhTGf" crossorigin="anonymous"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+
+</html>

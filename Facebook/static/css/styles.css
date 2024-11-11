@@ -1,0 +1,169 @@
+/* OM Namah Shivay */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    font-size: 10px;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #f0f2f5;;
+    height: 100vh;
+    gap: 4rem;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 500px;
+
+}
+
+.logo{
+    width: 30rem;
+    height: auto;
+    margin-left: -2.5rem;
+}
+
+.para{
+    font-size: 2.8rem;
+    font-weight: lighter;
+}
+
+/*  */
+
+.form{
+    background-color: #fff;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem;
+    min-width: 400px;
+    border-radius: 1rem;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+
+}
+
+.loginform{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+.input, .login, .newacc{
+    padding: 1.4rem 2rem;
+    font-size: 1.8rem;
+    font-weight: lighter;
+    border-radius: 0.8rem;
+    border: none;
+    border: 1px solid #dddfe2;
+    width: 100%;
+    outline: #0866FF;
+}
+
+.input::placeholder{
+    color: #858585
+}
+.input:focus::placeholder{
+    color: #b1b1b1
+}
+
+.input:focus{
+    border: 1px solid #0866FF;
+}
+
+.login{
+    background-color: #0866FF;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login:hover{
+    background-color: #146cfa;
+}
+
+.fpass{
+    font-size: 1.5rem;
+    text-decoration: none;
+    cursor: pointer;
+    width: fit-content;
+    color: #0866FF;
+}
+
+.fpass:hover{
+    text-decoration: underline;
+}
+
+hr{
+    border: none;
+    border-top: 1px solid #dadde1;
+    width: 100%;
+}
+.newacc{
+    width: fit-content;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    background-color: #42b72a;
+    cursor: pointer;
+}
+
+.newacc:hover{
+    background-color: #58bb44
+}
+
+@media only screen and (max-width: 1071px) and (min-width:900px){
+    .para{
+        font-size: 2.4rem;
+    }
+}
+
+@media only screen and (max-width:900px) {
+    .wrapper{
+        flex-direction: column;
+        gap: 2;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .info{
+        align-items: center;
+        min-width: 400px;
+        width: 400px;
+        margin-top: 2rem;
+    }
+
+    .logo{
+        width: 30rem;
+        height: auto;
+        margin-left: 0;
+    }
+    
+    .para{
+        font-size: 2.4rem;
+        font-weight: lighter;
+        text-align: center;
+    }
+}
